@@ -1,5 +1,5 @@
 // user controller
-const User = require('../models/user.model')
+const User = require('../models/UsuarioModel')
 const router = require('express').Router()
 
 router.route('/new').post((req, res) => {

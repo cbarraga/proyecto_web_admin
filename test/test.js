@@ -1,35 +1,75 @@
-var assert = require('assert');
-var expect = require('chai').expect
+const expect = require('chai').expect;
+var testProjects = require('../proyectosExample');
+var testUsers = require('../usuariosExample');
 
-var User = require('../src/models/user.model');
+// Testing
+describe('Testing Database Models Validation', function(){
 
-describe('#userModel test their validations', function(){
+    context('#"Usuarios" Validation', function(){
+        
+        it('Should be valid', function( done ){
+            testUsers.userValid.validate(function(err){
+                expect(err).to.equal(null);
+                done();
+            });
+        });
 
-  it('Should be invalid if name is empty', function( done ){
-    var user1 = new User({
-      email: 'prueba@prueba.com',
-      password: '123456789',
-      age: 20
-    })
+        it('Should have ALL required fields', function( done ){
+            // Los campos requeridos en el test
+            const reqFields = ['perfil', 'identificacion', 'nombres', 'apellidos', 'status', 'registrado'];
+            testUsers.userRequiredFields.validate(function(err){
+                reqFields.forEach(field =>{
+                    expect(err.errors[field]).to.exist;
+                });
+                done();
+            });
+        });
 
-    user1.validate(function(err){
-      expect( err.errors.name ).to.exist;
-      done();
-    })
-  });
+        it('Should have field type validation', function( done ){
+            // Los campos con tipos de dato inválido
+            const invalidTypeFields = ['identificacion', 'celular', 'registrado']
+            testUsers.userInvalidTypes.validate(function(err){
+                invalidTypeFields.forEach(field =>{
+                    expect(err.errors[field]).to.exist;
+                });
+                done();
+            });
+        });
 
-  it('Should be a invalid validation ', function( done ){
-    var user2 = new User({
-      name: 'Juan Jaramillo',
-      email: 'prueba@prueba.com',
-      password: '123456789',
-      age: 15
-    })
+    });
 
-    user2.validate(function(err){
-      expect( err.errors.age ).to.exist;
-      done();
-    })
-  });
+    context('#"Proyectos" Validation', function(){
+        
+        it('Should be valid', function( done ){
+            testProjects.projectExample.validate(function(err){
+                expect(err).to.equal(null);
+                done();
+            });
+        });
 
-})
+        it('Should have ALL required fields', function( done ){
+            const reqFields = ['nombre', 'periodo', 'descripcion', 'tipo', 'fecha_final', 'fecha_final', 'estado'];
+            testProjects.projectRequiredFields.validate(function(err){
+                reqFields.forEach(field =>{
+                    expect(err.errors[field]).to.exist;
+                });
+                done();
+            });
+        });
+
+        it('Should have field type validation', function( done ){
+            const invalidTypeFields = ['nombre', 'fecha_inicial', 'fecha_final', 'fase'];
+            testProjects.projectInvalidTypes.validate(function(err){
+                invalidTypeFields.forEach(field =>{
+                    expect(err.errors[field]).to.exist;
+                });
+                done();
+            });
+        });
+
+    });
+});
+
+// testProjects.projectInvalidTypes.validate(function(err){
+//     console.log(err.errors);
+// });
