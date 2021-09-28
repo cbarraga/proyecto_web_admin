@@ -1,12 +1,14 @@
 {
-  "name": "mongodb_test",
+  "name": "project_administration",
   "version": "1.0.0",
-  "description": "Testing MongoDB database created at Sprint2",
+  "description": "node express and mongo implementation of group investigation users and clients",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "start": "node index.js",
+    "start-dev": "node index.js"
   },
-  "author": "Skyssar",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "chai": "^4.3.4",
@@ -14,6 +16,7 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "mocha": "^9.1.1",
-    "mongoose": "^6.0.7"
+    "mongoose": "^6.0.8",
+    "nodemon": "^2.0.12"
   }
 }
