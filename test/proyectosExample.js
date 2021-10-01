@@ -1,4 +1,4 @@
-var Proyecto = require('./src/models/ProyectoModel');
+var Proyecto = require('../src/models/ProjectModel');
 
 // Proyecto de ejemplo
 var projectExample = new Proyecto({

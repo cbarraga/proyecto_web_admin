@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
-var testProjects = require('../proyectosExample');
-var testUsers = require('../usuariosExample');
+var testProjects = require('./proyectosExample');
+var testUsers = require('./usuariosExample');
 
 // Testing
 describe('Testing Database Models Validation', function(){

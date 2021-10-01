@@ -1,13 +1,17 @@
 // establish an express app
-const express = require('express')
-const app = express()
+const express = require('express');
+const app = express();
 
 // allow requests from outside resources like postman, or your frontend if you choose to build that out
-const cors = require('cors')
-app.use(cors())
+const cors = require('cors');
+app.use(cors());
 
-// app will serve and receive data in a JSON format
-app.use(express.json())
+// app will serve and receive data (body) in the follow formats:
+
+// create application/x-www-form-urlencoded parser
+app.use(express.urlencoded({ extended: false }));
+// create application/json parser
+app.use(express.json());
 
 // the messenger between our app and our database
 const mongoose = require('mongoose')
@@ -29,14 +33,16 @@ connection.once('open', () => {
 })
 
 // Import and user routes
-const userRoutes = require('./src/controllers/user.controller')
+const userRoutes = require('./src/controllers/UserController')
+const projectRoutes = require('./src/controllers/ProjectController')
 
 // Set route path on project
 app.get('/', async (req, res) => {
   res.status(200).json("App is running rigth now!")
 })
 
-app.use('/users', userRoutes)
+app.use('/users', userRoutes);
+app.use('/projects', projectRoutes);
 
 app.listen(PORT, ()=>{
     console.log(`Successfully served on port: ${PORT}.`);

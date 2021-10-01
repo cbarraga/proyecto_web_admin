@@ -1,4 +1,4 @@
-var Usuario = require('./src/models/UsuarioModel');
+var Usuario = require('../src/models/UserModel');
 
 var userValid = new Usuario({
     perfil: "invitado",
